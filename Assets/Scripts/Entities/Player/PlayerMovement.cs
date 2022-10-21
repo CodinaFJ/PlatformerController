@@ -40,7 +40,10 @@ public class PlayerMovement : EntityMovement, IObserver
     private void SetAcceleration(){
         if(moveInput.magnitude == 1){
             //Instant movement sets always maxSpeed - no acceleration
-            if(instantMovement) velocity = -moveInput.x * maxSpeed + moveInput.y * maxSpeed;
+            if(instantMovement){
+                velocity = -moveInput.x * maxSpeed + moveInput.y * maxSpeed;
+                entityMovementState = EntityMovementState.MaxSpeed;
+            } 
 
             else if(Mathf.Sign(velocity) == Mathf.Sign(-moveInput.x + moveInput.y) || Mathf.Abs(velocity) == 0){
                 //ACCELERATE
