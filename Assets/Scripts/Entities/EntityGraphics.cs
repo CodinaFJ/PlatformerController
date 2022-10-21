@@ -18,6 +18,9 @@ public class EntityGraphics : MonoBehaviour
     }
 
     public void UpdateEntityGraphics(EntityMovementState entityMovementState, float velocity){
+        float orientation = Mathf.Sign(velocity);
+        if(velocity == 0) orientation = transform.localScale.x;
+        
         switch(entityMovementState){
             case EntityMovementState.Idle:
                 ChangeAnimationState(IDLE);
@@ -26,22 +29,22 @@ public class EntityGraphics : MonoBehaviour
 
             case EntityMovementState.Accelerate:
                 ChangeAnimationState(RUN);
-                transform.localScale = new Vector3(Mathf.Sign(velocity), 1, 1);
+                transform.localScale = new Vector3(orientation, 1, 1);
                 break;
 
             case EntityMovementState.Decelerate:
                 ChangeAnimationState(RUN);
-                transform.localScale = new Vector3(Mathf.Sign(velocity), 1, 1);
+                transform.localScale = new Vector3(orientation, 1, 1);
                 break;
 
             case EntityMovementState.MaxSpeed:
                 ChangeAnimationState(RUN);
-                transform.localScale = new Vector3(Mathf.Sign(velocity), 1, 1);
+                transform.localScale = new Vector3(orientation, 1, 1);
                 break;
 
             case EntityMovementState.Turn:
                 ChangeAnimationState(RUN);
-                transform.localScale = new Vector3(-Mathf.Sign(velocity), 1, 1);
+                transform.localScale = new Vector3(-orientation, 1, 1);
                 break;
 
             default:
