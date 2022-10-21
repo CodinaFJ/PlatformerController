@@ -50,6 +50,8 @@ public class PlayerMovement : EntityMovement, IObserver
                 entityMovementState = EntityMovementState.Turn;
                 acc = - moveInput.x * turnAcceleration + moveInput.y * turnAcceleration;
             }
+
+            if(velocity == 0) velocity = Mathf.Epsilon * (-moveInput.x + moveInput.y);
         } 
         else{
             if(Mathf.Abs(velocity) < stopBuffer || instantMovement){
