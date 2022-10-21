@@ -20,7 +20,8 @@ public class EntityGraphics : MonoBehaviour
     public void UpdateEntityGraphics(EntityMovementState entityMovementState, float velocity){
         float orientation = Mathf.Sign(velocity);
         if(velocity == 0) orientation = transform.localScale.x;
-        
+        else Debug.Log(velocity);
+
         switch(entityMovementState){
             case EntityMovementState.Idle:
                 ChangeAnimationState(IDLE);
