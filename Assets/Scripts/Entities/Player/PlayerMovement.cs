@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class PlayerMovement : EntityMovement, IObserver
 {
-    [SerializeField][Range(1,100)]
+    [Header ("Movement variables")]
+    [SerializeField][Range(1,50)]
     private float maxSpeed = 10;
-    [SerializeField][Range(1,100)]
+    [SerializeField][Range(1,50)]
     private float acceleration = 10;
-    [SerializeField][Range(1,100)]
+    [SerializeField][Range(1,50)]
     private float deceleration = 10;
-    [SerializeField][Range(1,100)]
+    [SerializeField][Range(1,50)]
     private float turnAcceleration = 10;
     [SerializeField][Range(0.01f, 1)]
     private float stopBuffer = 0.1f;
     [SerializeField]
     private bool instantMovement = false;
+
+    [Header ("Jump Variales")]
+    [SerializeField]
+    private float jumpLiftoffVelocity = 1;
 
     float acc = 0;
  
@@ -26,6 +31,7 @@ public class PlayerMovement : EntityMovement, IObserver
     //  (0,1) Right pressed
     //  (1,1) Both pressed
     private Vector2 moveInput;
+    private float jumpInput;
 
     protected override void Start() {
         base.Start();
@@ -34,7 +40,20 @@ public class PlayerMovement : EntityMovement, IObserver
 
     public void UpdateObserver(){
         moveInput = InputManager.Instance.MoveInput;
+        if(jumpInput != InputManager.Instance.JumpInput){
+            jumpInput = InputManager.Instance.JumpInput;
+            Jump();
+        }
         SetAcceleration();
+    }
+
+    public override void Jump(){
+        if(jumpInput > 0 && onGround)
+            myRigidbody2D.velocity = new Vector2(myRigidbody2D.velocity.x, jumpLiftoffVelocity);
+            entityMovementState = EntityMovementState.Jump;
+            movementStateChangeEvent?.Invoke();
+        /*else
+            myRigidbody2D.velocity = new Vector2(myRigidbody2D.velocity.x, 0);*/
     }
 
     private void SetAcceleration(){
@@ -76,6 +95,11 @@ public class PlayerMovement : EntityMovement, IObserver
     }
 
     public override void Move(){
+        if(onGround) GroundMovement();
+        else ;
+    }
+
+    private void GroundMovement(){
         float pos_0 = transform.position.x;
         float pos_1 = 0;
         float vel_0 = velocity;
@@ -100,5 +124,4 @@ public class PlayerMovement : EntityMovement, IObserver
     ~PlayerMovement(){
         InputManager.Instance.RemoveObserver(this);
     }
-
 }

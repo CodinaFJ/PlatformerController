@@ -442,12 +442,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityMovementState: 0
+  myRigidbody2D: {fileID: 599894044}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  onGround: 0
   maxSpeed: 10
   acceleration: 10
   deceleration: 10
   turnAcceleration: 10
-  stopBuffer: 0.1
+  stopBuffer: 0.3
   instantMovement: 0
+  jumpLiftoffVelocity: 10
 --- !u!70 &599894043
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -461,8 +467,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.011131287, y: -0.1558389}
-  m_Size: {x: 0.55508804, y: 0.9625157}
+  m_Offset: {x: -0.011131287, y: -0.1521551}
+  m_Size: {x: 0.55508804, y: 0.9551481}
   m_Direction: 0
 --- !u!50 &599894044
 Rigidbody2D:
@@ -509,6 +515,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5338544934bce9944a313f9386bf5c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  raycastSuelo: 0
 --- !u!1 &829008246
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +533,7 @@ GameObject:
   - component: {fileID: 829008251}
   - component: {fileID: 829008250}
   - component: {fileID: 829008252}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

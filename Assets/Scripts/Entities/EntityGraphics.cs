@@ -34,7 +34,6 @@ public class EntityGraphics : MonoBehaviour
 
             case EntityMovementState.Decelerate:
                 ChangeAnimationState(RUN);
-                transform.localScale = new Vector3(transform.localScale.x, 1, 1);
                 break;
 
             case EntityMovementState.MaxSpeed:
@@ -45,6 +44,10 @@ public class EntityGraphics : MonoBehaviour
             case EntityMovementState.Turn:
                 ChangeAnimationState(RUN);
                 transform.localScale = new Vector3(-orientation, 1, 1);
+                break;
+
+            case EntityMovementState.Jump:
+                ChangeAnimationState(JUMP);
                 break;
 
             default:
@@ -63,8 +66,4 @@ public class EntityGraphics : MonoBehaviour
         //reassign the current state
         currentState = newState;
     }
-}
-
-public enum EntityOrientation{
-    Left, Right
 }

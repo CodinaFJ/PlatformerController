@@ -6,7 +6,13 @@ public class EntityMovement : MonoBehaviour
 {
     [HideInInspector]
     public EntityMovementState entityMovementState;
-    Rigidbody2D myRigidbody2D;
+    [SerializeField]
+    protected Rigidbody2D myRigidbody2D;
+    
+    [SerializeField]
+    protected LayerMask groundLayerMask;
+    [SerializeField]
+    protected bool onGround;
 
     public Action movementStateChangeEvent;
 
@@ -16,15 +22,21 @@ public class EntityMovement : MonoBehaviour
     }
 
     protected virtual void Start(){
-        myRigidbody2D = GetComponent<Rigidbody2D>();
+    }
+
+    protected virtual void Update() {
+        onGround = Physics2D.Raycast(transform.position, Vector2.down, 1, groundLayerMask);
     }
 
     public virtual void Move(){
+
+    }
+    public virtual void Jump(){
 
     }
     
 }
 
 public enum EntityMovementState{
-    Idle, Accelerate, Decelerate, Turn, MaxSpeed
+    Idle, Accelerate, Decelerate, Turn, MaxSpeed, Jump
 }

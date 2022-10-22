@@ -6,6 +6,10 @@ public class EntityBehavior : MonoBehaviour
 {
     EntityMovement entityMovement;
     EntityGraphics entityGraphics;
+    [SerializeField]
+    LayerMask groundLayerMask;
+    [SerializeField]
+    bool raycastSuelo;
 
     void Start(){
         entityMovement = GetComponent<EntityMovement>();
@@ -20,7 +24,13 @@ public class EntityBehavior : MonoBehaviour
         GetComponent<EntityMovement>().movementStateChangeEvent -= UpdateGraphics;
     }
 
-    void Update(){
+    private void Update() {
+        RaycastHit2D groundRaycast = Physics2D.Raycast(transform.position, Vector2.down, 1, groundLayerMask);
+        if(groundRaycast) raycastSuelo = true;
+        else raycastSuelo = false;
+    }
+
+    void FixedUpdate(){
         entityMovement.Move();
     }
 
