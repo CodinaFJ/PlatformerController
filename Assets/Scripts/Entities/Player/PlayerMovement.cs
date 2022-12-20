@@ -96,8 +96,7 @@ public class PlayerMovement : EntityMovement, IObserver
 
     public override void Move(){
         if(onGround) GroundMovement();
-        else ;
-    }
+        }
 
     private void GroundMovement(){
         float pos_0 = transform.position.x;
